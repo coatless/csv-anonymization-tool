@@ -109,6 +109,9 @@ for columnName in student_identifiers_columns:
   if columnName in df:
     sys.stderr.write(f'- Removed column `{columnName}` and data from anonymized output.\n')
     df = df.drop([columnName], axis = 1)
+    
+# Shuffle observations to avoid leaking alphabetized roster.
+df = df.sample(frac=1).reset_index(drop=True)
 
 sys.stderr.write(f'- Processed {len(df)} row(s)\n')
 
